@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const ejs = require("ejs");
+const _ = require('lodash');
 const port = 3000;
 
 const publicDirectoryPath = path.join(__dirname, "../public");
@@ -24,7 +25,7 @@ const contactContent =
 const posts = [];
 app.get("/", (req, res) => {
   res.render("home", {
-    startContent:homeStartingContent,
+    startContent: homeStartingContent,
     content: posts,
   });
 });
@@ -47,22 +48,27 @@ app.get('/compose', (req, res) => {
 })
 
 app.post('/publish', (req, res) => {
-   posts.push( {
+  posts.push({
     title: req.body.title,
     post: req.body.post
   })
   res.redirect('/')
 })
 
-app.get('/posts/:post', (req,res)=>{
-  posts.forEach(post=>{
-    if(post.title==req.params.post){
-      console.log('Match')
-    } else{
-      console.log('No such match')
+app.get('/posts/:post', (req, res) => {
+  posts.forEach(post => {
+    let param = _.lowerCase(req.params.post)
+    if (_.lowerCase(post.title) == param) {
+      res.render("post", {
+        title: post.title,
+        post: post.post
+      })
     }
   })
 })
+
+
+
 app.listen(port, () => {
   console.log(`App is running on port:${port}`);
 });

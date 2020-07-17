@@ -33,3 +33,10 @@
 	font-size: 12px;
   color: #fff;
 }
+
+.homePost{
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

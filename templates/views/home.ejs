@@ -5,7 +5,7 @@
 
 <% content.forEach((post)=>{ %>
 <h2><%=post.title%></h2>
-<p><%= post.post %></p>
+<p class="homePost"><%= post.post %> <a href="/posts/<%= post.title %>">Read more</a></p>
 <% }) %>
 
 <%- include('../partials/footer'); -%>
