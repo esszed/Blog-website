@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 app.set("views", viewsPath);
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(publicDirectoryPath));
 
 const homeStartingContent =
@@ -38,6 +38,17 @@ app.get("/contact", (req, res) => {
     content: contactContent,
   });
 });
+
+app.get('/compose', (req, res)=>{
+    
+    res.render('compose')
+})
+
+app.post('/publish', (req,res)=>{
+    console.log(req.body.composition)
+    res.redirect('/compose')
+})
+
 app.listen(port, () => {
   console.log(`App is running on port:${port}`);
 });
